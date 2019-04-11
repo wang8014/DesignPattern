@@ -8,3 +8,10 @@ export class FactoryReturnClass {
   returnValue: string;
   result: number;
 }
+
+export class StrategyParameter extends  FactoryParameter{
+
+}
+export class StrategyReturnClass  extends FactoryReturnClass {
+
+}

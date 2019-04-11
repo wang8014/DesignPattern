@@ -1,6 +1,6 @@
 <mat-card class="tp-card">
   <mat-card-header>
-    Factory Pattern
+    Factory Pattern / Strategy Pattern
   </mat-card-header>
   <mat-card-content>
     <mat-label>Number 1 </mat-label>
@@ -24,10 +24,15 @@
 
   </mat-card-content>
   <mat-card-actions>
-      <button mat-raised-button (click)="onCalculate()" >Calculate</button>
+      <button mat-raised-button (click)="onFactoryCalculate()" >Factory Calculate</button>
+      <button mat-raised-button (click)="onStrategyCalculate()" >Strategy Calculate</button>
 
   </mat-card-actions>
   <mat-card-footer>
       <mat-label>{{message}}</mat-label>
   </mat-card-footer>
 </mat-card>
+
+
+
+

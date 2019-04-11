@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { FactoryParameter } from './patternJsonclass';
-import { FactoryReturnClass } from './patternJsonclass';
+import { FactoryParameter, StrategyParameter } from './patternJsonclass';
+import { FactoryReturnClass, StrategyReturnClass } from './patternJsonclass';
 
 
 
@@ -25,9 +25,13 @@ export class PatternComponent implements OnInit {
     this.baseUrl = baseUrl;
   }
 
-  onCalculate() {
+  onFactoryCalculate() {
     this.FactoryPost();
   }
+  onStrategyCalculate() {
+    this.StrategyPost();
+  }
+
   FactoryPost() {
     const jsondata: FactoryParameter = new FactoryParameter();
     jsondata.numberX = this.numberX;
@@ -39,7 +43,17 @@ export class PatternComponent implements OnInit {
 
     }, error => console.error(error));
   }
+  StrategyPost() {
+    const jsondata: StrategyParameter = new StrategyParameter();
+    jsondata.numberX = this.numberX;
+    jsondata.numberY = this.numberY;
+    jsondata.oper = this.operators;
 
+    this.httpclient.post<StrategyReturnClass>(this.baseUrl + 'api/Pattern/StrategyCalculate', jsondata ).subscribe(result => {
+      this.message = result.message.toString() + '.  result = ' + result.result.toString();
+
+    }, error => console.error(error));
+  }
   ngOnInit() {
   }
 

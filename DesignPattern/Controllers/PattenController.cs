@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using System.Text;
 using DesignPattern.FactoryPatten;
+using DesignPattern.StrategyPattern;
 
 
 namespace DesignPattern.Controllers
@@ -20,7 +21,7 @@ namespace DesignPattern.Controllers
                 oper.NumberX = param.NumberX;
                 oper.NumberY = param.NumberY;
                 try{
-                    rtn.Message = "Calculated successfully!";
+                    rtn.Message = "Calculated successfully by factoryPattern!";
                     rtn.result = oper.CalculateResult(); 
                     rtn.ReturnValue = 0;
                 } 
@@ -35,6 +36,28 @@ namespace DesignPattern.Controllers
             } else {
                 rtn.Message = "Operator is invalid.";
                 rtn.ReturnValue = 101;
+            }
+            
+            return rtn;
+
+        }
+
+        [HttpPost("[action]")]
+        public StrategyReturnClass StrategyCalculate([FromBody]JsonStrategyParameter param) {
+            StrategyReturnClass rtn = new StrategyReturnClass();
+            ContextOperation context = new ContextOperation(param.oper,param.NumberX,param.NumberY);
+            try{
+                    rtn.Message = "Calculated successfully by strategyPattern!";
+                    rtn.result = context.Calculate(); 
+                    rtn.ReturnValue = 0;
+            } 
+            catch (Exception ex){
+                rtn.Message = "error:"+ex.Message;
+                rtn.ReturnValue = 100;
+            }
+            finally
+            {
+                
             }
             
             return rtn;
